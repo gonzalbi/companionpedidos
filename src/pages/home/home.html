@@ -1,14 +1,64 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+
+  <ion-navbar class="nav_home" #mycontent>
+      <ion-icon left name="menu" menuToggle></ion-icon>
+      <ion-title style="text-align: center">Companion Pedidos</ion-title>
   </ion-navbar>
+
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-menu [content]="mycontent">
+    <ion-header>
+        <ion-toolbar>
+        <ion-title>{{us_name}}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <button block ion-button>History<</button>
+            <button block ion-button (click)="logOut()">LOG OUT!!! D<</button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-content #mycontent padding>
+    <div *ngIf="loading== false;else other_content">
+    <ion-card *ngFor='let pedido of pedidos' class="pedido_div">
+        <ion-icon *ngIf="pedido.p_responsable == us_id" (click)="removePedido(pedido)" name="ios-close" style="float: right;margin-right: 10px;font-size: 30px;"></ion-icon>
+        <ion-card-header>
+            <ion-card-title>{{pedido.p_nombre}}</ion-card-title>
+            <h3>Pide: {{pedido.p_responsable_nombre}}</h3>
+        </ion-card-header>
+        <!--<h2>Lugar: {{pedido.p_lugar}}</h2>-->
+        <h3 class="time_ped"><ion-icon name="time"></ion-icon> Horario: {{pedido.p_time}}</h3>
+
+        <ion-card-content>
+            <ion-row *ngIf="pedido.p_ya_pedido"><p class="pedido_realizado">Ya fue pedido</p></ion-row>
+                <ion-row>
+                    <button ion-button class="see_list" (click)="getItemList(pedido.p_nombre,pedido.p_id)" round>
+                        <ion-icon name="ios-list-box-outline" ></ion-icon>
+                    </button>
+                    <button ion-button class="add_item" (click)="addItemPrompt(pedido.p_id)" color="danger" round>
+                        <ion-icon name="ios-add-circle-outline" ></ion-icon>
+                    </button>
+                </ion-row>
+        </ion-card-content>
+
+    </ion-card>
+    </div>
+
+    <ng-template #other_content>No hay pedidos cargados</ng-template>
+
+    <button ion-button class="add_pedido" (click)="addPedido()">
+        <ion-icon name="ios-add-circle-outline"></ion-icon>
+    </button>
+
 </ion-content>
