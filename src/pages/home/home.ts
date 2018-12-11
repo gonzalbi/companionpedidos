@@ -47,7 +47,7 @@ export class HomePage {
   }
 
   traerPedidos(){
-      this.http.post("http://companionpedidos.forecastia.com/api/getPedidos:8080",{us_id : this.us_id},{})
+      this.http.post("http://companionpedidos.forecastia.com:8080/api/getPedidos",{us_id : this.us_id},{})
           // .map(resp => {this.pedidos = resp})
           .subscribe(resp => {
           console.log(resp)
@@ -139,9 +139,9 @@ export class HomePage {
             p_time : data.hora,
             p_items : [],
             p_items_remove : []
-    }
+        }
 
-        this.http.post("http://companionpedidos.forecastia.com/api/savePedido:8080",body,{})
+        this.http.post("http://companionpedidos.forecastia.com:8080/api/savePedido",body,{})
             .subscribe(resp => {
             console.log("lesto")
                 this.traerPedidos();
@@ -156,7 +156,7 @@ export class HomePage {
 
     removePedido(pedido){
 
-        this.http.post("http://companionpedidos.forecastia.com/api/removePedido:8080",pedido,{})
+        this.http.post("http://companionpedidos.forecastia.com:8080/api/removePedido",pedido,{})
             .subscribe(resp => {
                 console.log("lesto")
             },error => {
@@ -202,7 +202,7 @@ export class HomePage {
             p_id : p_id
         }
 
-        this.http.post("http://companionpedidos.forecastia.com/api/addItems:8080",body,{})
+        this.http.post("http://companionpedidos.forecastia.com:8080/api/addItems",body,{})
             .subscribe(resp => {
                 console.log("lesto")
             },error => {

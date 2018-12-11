@@ -37,7 +37,7 @@ export class LoginPage {
 
       this.storage.set('name',user_name);
 
-      this.http.post("http://companionpedidos.forecastia.com/api/login:8080",body,{}).subscribe(resp => {
+      this.http.post("http://companionpedidos.forecastia.com:8080/api/login",body,{}).subscribe(resp => {
           this.navCtrl.setRoot(HomePage, {login_data : resp})
       },error => {
             console.log(error)
